@@ -1,0 +1,110 @@
+##### xml
+<servers>
+    <server>
+      <name>server1</name>
+      <owner>john</owner>
+      <created>1222301</created>
+      <status>active</status>
+    </server>
+</servers>
+
+
+##### json
+{
+    servers:[
+        {
+            name:server1,
+            owner:john,
+            created:1222301,
+            status:active,
+        },
+    ]
+}
+
+
+#### yaml
+servers:
+    - name: server1
+      owner: john
+      created: 1222301
+      status: active
+
+
+
+#### yaml key value pair
+fruit: apple
+vegetable: carrot
+liquid: water
+meat: chicken
+
+#### yaml array and lists
+fruits:
+    - orange
+    - apple
+    - banana
+
+vegetables:
+    - carrot
+    - cauliflower
+    - tomato
+
+#### yaml dictoniary
+banana:
+    calories:105
+    fat: 0.4g
+    carbs: 27g
+grapes:
+    calories:62
+    fat: 0.3g
+    carbs: 16g
+
+
+
+#### yaml dictoniary and lists example
+fruits:
+    - banana:
+        calories: 105
+        fat: 0.4g
+        carbs: 27g
+    - grape:
+        calories: 62
+        fat: 0.3g
+        carbs: 16g
+
+#### yaml dictoniary in dictoniary
+color: blue
+model: 
+    name: corvett
+    year: 1995
+transmission: manual
+price: $20,000
+
+
+### formula
+# dictoniary == unordered
+# list == ordered
+
+
+#### formula for all yaml
+pod -> v1
+service -> v1
+replicaset -> apps/v1
+deployment -> apps/v1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
