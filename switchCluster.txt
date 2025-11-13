@@ -1,0 +1,11 @@
+# all clusters
+kind get clusters
+
+# create cluster
+kind create cluster --name cluster1
+
+#current cluster
+kubectl config get-contexts
+
+# use cluster
+kubectl config use-context kind-cluster1
