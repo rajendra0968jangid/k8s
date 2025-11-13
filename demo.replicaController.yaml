@@ -18,3 +18,4 @@ spec:
 
 
 #kubectl create -f demo.replicaController.yaml
+#kubectl get replicationcontroller
