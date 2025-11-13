@@ -1,0 +1,38 @@
+# Download latest stable release
+curl -LO "https://dl.k8s.io/release/$(curl -L -s \
+https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+# Make it executable
+chmod +x kubectl
+
+# Move it to PATH
+sudo mv kubectl /usr/local/bin/
+
+# Verify installation
+kubectl version --client
+
+# update
+sudo apt update ;
+
+# install docker
+sudo apt install docker.io -y 
+
+# Add current user to the docker group
+sudo usermod -aG docker $USER
+
+# log out and log in 
+newgrp docker
+
+
+
+############################## kind
+# install kind
+curl -Lo ./kind "https://kind.sigs.k8s.io/dl/latest/kind-linux-amd64"
+chmod +x ./kind
+sudo mv ./kind /usr/local/bin/kind
+kind version
+
+####################
+kubectl version --client
+
+kind create cluster --name cluster1
