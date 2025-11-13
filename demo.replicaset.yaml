@@ -18,3 +18,9 @@ spec:
       containers:
         - name: nginx-container
           image: nginx
+
+# kubectl create -f demo.replicaset.yaml
+# kubectl get replicaset
+# kubectl scale --replicas=6 -f demo.replicaset.yaml
+# kubectl scale --replicas=6 replicaset myapp-replicaset
+# kubectl delete replicaset myapp-replicaset
