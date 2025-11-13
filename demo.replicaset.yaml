@@ -23,4 +23,8 @@ spec:
 # kubectl get replicaset
 # kubectl scale --replicas=6 -f demo.replicaset.yaml
 # kubectl scale --replicas=6 replicaset myapp-replicaset
+
 # kubectl delete replicaset myapp-replicaset
+# kubectl replace -f replicaset-definition.yaml
+# kubectl scale -replicas=6 -f replicaset-definition.yaml
+
