@@ -10,3 +10,5 @@ spec:
     - port: 80
       targetPort: 80
       nodePort: 30080
+
+#kubectl port-forward svc/nginx-service 8080:80

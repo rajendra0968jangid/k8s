@@ -1,0 +1,62 @@
+#!/bin/bash
+
+echo "=================== STEP 1: Install Dependencies ==================="
+sudo apt update
+sudo apt install -y curl apt-transport-https ca-certificates gnupg software-properties-common
+
+
+echo "=================== STEP 2: Install Docker ==================="
+sudo apt install -y docker.io
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo usermod -aG docker $USER
+
+
+echo "=================== STEP 3: Setup Kubernetes Repo ==================="
+sudo mkdir -p /etc/apt/keyrings
+
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key \
+  | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] \
+https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /" \
+| sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
+
+sudo apt update
+
+
+echo "=================== STEP 4: Install kubeadm, kubelet, kubectl ==================="
+sudo apt install -y kubeadm kubelet kubectl
+sudo apt-mark hold kubeadm kubelet kubectl
+
+
+echo "=================== STEP 5: Disable Swap ==================="
+sudo swapoff -a
+sudo sed -i '/ swap / s/^/#/' /etc/fstab
+
+
+echo "=================== STEP 6: Reset Old Kubernetes Config ==================="
+sudo kubeadm reset -f
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet
+
+
+echo "=================== STEP 7: Initialize Kubernetes Master ==================="
+sudo kubeadm init --pod-network-cidr=192.168.0.0/16
+
+
+echo "=================== STEP 8: Configure kubectl ==================="
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+
+echo "=================== STEP 9: Install Calico Network Plugin ==================="
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.1/manifests/calico.yaml
+
+
+echo "=================== STEP 10: Show Worker Join Command ==================="
+kubeadm token create --print-join-command
+
+echo "=================== MASTER NODE SETUP COMPLETE ==================="
+echo "If kubectl gives error, run:   newgrp docker"
