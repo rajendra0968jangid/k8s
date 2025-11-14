@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myreplicaset
+  labels:
+    app: myapp
+    type: front-end
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      type: front-end
+  template:
+    metadata:
+      labels:
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx:1.7.1
+
+# kubectl create -f demo.deployment.yaml
+
+# kubectl get deployments
+# kubectl get all
+
+
+# rollout and versioning
+# kubectl rollout status deployment/myapp-deployment
+# kubectl rollout history deployment/myapp-deployment
+
+# recreate 
+# 5 -> 5 (5 previous pod delete new pod create)[down time]
+
+# rolling update
+# 5 -> 1 (one by one delete and new create) [zero down time]
+
+# how to update the container image (for update)
+# kubectl apply -f deployment-definition.yaml (change in file)
+#kubectl set image deployment/myapp-deployment nginx=nginx:1.9.1 (change the image)
+
+
+#status
+# kubectl rollout status deployment/myapp-deployment
+# kubectl rollout history deployment/myapp-deployment
+
+# rollback
+# kubectl rollback undo deployment myapp-deployment

@@ -6,3 +6,4 @@ kubectl describe pod nginx
 
 kubectl get pods -o wide
 
+kubectl delete pod <pod-name>
