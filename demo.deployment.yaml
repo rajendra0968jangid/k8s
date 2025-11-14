@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: nginx-container
-          image: nginx:1.7.1
+          image: nginx
 
 # kubectl create -f demo.deployment.yaml
 
