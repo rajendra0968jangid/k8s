@@ -21,6 +21,9 @@ spec:
 
 # kubectl create -f demo.deployment.yaml
 
+# help for rollout history
+# kubectl create -f demo.deployment.yaml --record 
+
 # kubectl get deployments
 # kubectl get all
 
@@ -46,3 +49,6 @@ spec:
 
 # rollback
 # kubectl rollback undo deployment myapp-deployment
+
+#kubectl describe deployment 
+ 
