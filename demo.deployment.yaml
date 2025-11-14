@@ -18,7 +18,8 @@ spec:
       containers:
         - name: nginx-container
           image: nginx
-           - containerPort: 80
+           ports:
+            - containerPort: 80
 
 # kubectl create -f demo.deployment.yaml
 
