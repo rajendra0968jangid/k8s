@@ -1,5 +1,7 @@
 ### for both master and worker
-git clone https://github.com/techiescamp/kubeadm-scripts
+git clone https://github.com/rajendra0968jangid/k8s
+
+cd k8s/kubeadm-scripts/scripts
 
 ####
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
@@ -69,7 +71,7 @@ sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 
 ###
-./common.sh
+sudo ./common.sh
 
 
 #### only in master
@@ -83,7 +85,7 @@ sudo nano master.sh
 #PUBLIC_IP_ACCESS="true"
 
 
-./master.sh
+sudo ./master.sh
 
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
@@ -95,3 +97,8 @@ kubectl get po -n kube-system
 
 
 kubectl get nodes
+
+
+
+## get token cmd from master
+kubeadm token create --print-join-command
