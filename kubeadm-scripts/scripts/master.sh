@@ -1,4 +1,3 @@
-
 #!/bin/bash
 #
 # Setup for Control Plane (Master) servers
