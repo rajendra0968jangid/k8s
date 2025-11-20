@@ -7,7 +7,7 @@ cd k8s/kubeadm-scripts/scripts
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
 overlay
 br_netfilter
-EOF
+EOF 
 
 #####
 sudo modprobe overlay
@@ -102,3 +102,13 @@ kubectl get nodes
 
 ## get token cmd from master
 kubeadm token create --print-join-command
+
+
+###==========>>>>>>>>>>>>>> give name to the nodes 
+sudo hostnamectl set-hostname worker-node-1
+
+sudo systemctl restart systemd-logind || sudo reboot
+
+sudo kubeadm join <control-plane-ip>:6443 \
+  --token <TOKEN> \
+  --discovery-token-ca-cert-hash sha256:<HASH>
