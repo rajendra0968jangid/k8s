@@ -16,7 +16,7 @@ spec:
         app: solar-system
     spec:
       nodeSelector:
-        env: appnode
+        env: worker-node-2
       containers:
       - image: siddharth67/solar-system:v6
         name: solar-system
