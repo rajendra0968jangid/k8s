@@ -115,7 +115,7 @@ sudo kubeadm join <control-plane-ip>:6443 \
 
 
 ### ===>> used for labels 
-kubectl label node worker-node-1 env=appnode
+kubectl label node worker-node-1 env=worker-node-1
 
 kubectl get nodes --show-labels | grep worker-node-1
 
@@ -125,3 +125,19 @@ spec:
     spec:
       nodeSelector:
         env: appnode # use in the deployment file
+
+
+## =>>>>>>>>>> reset the workder node 
+sudo kubeadm reset -f
+
+
+sudo rm -rf /etc/kubernetes
+sudo rm -rf /var/lib/kubelet
+sudo rm -rf /var/lib/etcd
+sudo rm -rf /var/lib/cni/
+sudo rm -rf /etc/cni/
+
+
+
+sudo systemctl restart containerd
+sudo systemctl restart kubelet
