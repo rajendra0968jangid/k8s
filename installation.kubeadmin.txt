@@ -111,7 +111,7 @@ sudo systemctl restart systemd-logind || sudo reboot
 
 sudo kubeadm join <control-plane-ip>:6443 \
   --token <TOKEN> \
-  --discovery-token-ca-cert-hash sha256:<HASH>
+  --discovery-token-ca-cert-hash sha256:<HASH>g
 
 
 ### ===>> used for labels 
