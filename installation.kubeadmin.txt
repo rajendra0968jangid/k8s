@@ -109,10 +109,7 @@ sudo hostnamectl set-hostname worker-node-1
 
 sudo systemctl restart systemd-logind || sudo reboot
 
-sudo kubeadm join <control-plane-ip>:6443 \
-  --token <TOKEN> \
-  --discovery-token-ca-cert-hash sha256:<HASH>g
-
+sudo kubeadm join 3.85.234.96:6443 --token 3yecix.efu9eertkaekkcwe --discovery-token-ca-cert-hash sha256:85c4eb88604cd765f62b04c0782fa4bc207e2017c2728c363d083f9297c05c19
 
 ### ===>> used for labels 
 kubectl label node worker-node-1 env=worker-node-1

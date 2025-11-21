@@ -1,0 +1,62 @@
+sudo apt update -y
+sudo apt upgrade -y
+
+
+sudo apt install -y git wget tar sqlite3
+
+
+sudo adduser \
+  --system \
+  --shell /bin/bash \
+  --gecos 'Git Version Control' \
+  --group \
+  --disabled-password \
+  --home /home/git \
+  git
+
+
+sudo mkdir -p /var/lib/gitea/{custom,data,log}
+sudo mkdir -p /etc/gitea
+
+
+sudo chown -R git:git /var/lib/gitea/
+sudo chmod -R 750 /var/lib/gitea/
+
+sudo chown root:git /etc/gitea
+sudo chmod 770 /etc/gitea
+
+
+
+wget -O gitea https://dl.gitea.io/gitea/1.22.3/gitea-1.22.3-linux-amd64
+sudo mv gitea /usr/local/bin/gitea
+sudo chmod +x /usr/local/bin/gitea
+
+
+
+sudo tee /etc/systemd/system/gitea.service <<EOF
+[Unit]
+Description=Gitea
+After=network.target
+
+[Service]
+RestartSec=2s
+Type=simple
+User=git
+Group=git
+WorkingDirectory=/var/lib/gitea/
+ExecStart=/usr/local/bin/gitea web --config /etc/gitea/app.ini
+Restart=always
+Environment=USER=git HOME=/home/git GITEA_WORK_DIR=/var/lib/gitea
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+
+
+sudo systemctl daemon-reload
+sudo systemctl enable gitea
+sudo systemctl start gitea
+
+
+sudo systemctl status gitea
