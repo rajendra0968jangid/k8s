@@ -109,7 +109,7 @@ sudo hostnamectl set-hostname worker-node-1
 
 sudo systemctl restart systemd-logind || sudo reboot
 
-sudo kubeadm join 3.85.234.96:6443 --token 3yecix.efu9eertkaekkcwe --discovery-token-ca-cert-hash sha256:85c4eb88604cd765f62b04c0782fa4bc207e2017c2728c363d083f9297c05c19
+kubeadm join 34.228.111.176:6443 --token xznrsh.nmpy3l6q77cmd4u0 --discovery-token-ca-cert-hash sha256:6326e9b55a4a1d91f24880e19b0031204bebf1bae4faf29bd3f87e2558696981
 
 ### ===>> used for labels 
 kubectl label node worker-node-1 env=worker-node-1
@@ -121,7 +121,7 @@ spec:
   template:
     spec:
       nodeSelector:
-        env: appnode # use in the deployment file
+        env: worker-node-1 # use in the deployment file
 
 
 ## =>>>>>>>>>> reset the workder node 
@@ -138,3 +138,10 @@ sudo rm -rf /etc/cni/
 
 sudo systemctl restart containerd
 sudo systemctl restart kubelet
+
+
+### =>>>>>>>>>>>>>>>>>>> edit the file for webhook
+
+kubectl -n argocd edit deployment.apps/argocd-server
+kubectl rollout restart deployment argocd-server -n argocd
+
